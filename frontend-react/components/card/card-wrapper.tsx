@@ -7,34 +7,29 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Header } from "@/components/card/header";
-import { BackButton } from "@/components/card/back-button";
 
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;
-  backButtonLabel: string;
-  backButtonHref: string;
-  showSocial?: boolean;
+  mainLabel: string;
 }
 
 export const CardWrapper = ({
   children,
   headerLabel,
-  backButtonLabel,
-  backButtonHref,
+  mainLabel,
 }: CardWrapperProps) => {
   return (
-    <Card className="w-[800px] shadow-md">
+    <Card className="w-1/2 shadow-md">
       <CardHeader>
-        <Header label={headerLabel} />
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-      <CardFooter>
-        <BackButton
-          label={backButtonLabel}
-          href={backButtonHref}
+        <Header
+          label={headerLabel}
+          mainLabel={mainLabel}
         />
-      </CardFooter>
+      </CardHeader>
+      <CardContent
+      className="mx-8"
+      >{children}</CardContent>
     </Card>
   );
 };

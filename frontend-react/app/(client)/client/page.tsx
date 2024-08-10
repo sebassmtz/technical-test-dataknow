@@ -1,9 +1,16 @@
-import React from 'react'
+import { CardWrapper } from "@/components/card/card-wrapper";
+import { ClientForm } from "@/components/client/client-form";
+import React from "react";
 
 function ClientPage() {
   return (
-    <div>ClientPage</div>
-  )
+    <CardWrapper
+      mainLabel="Clientes"
+      headerLabel=""
+    >
+      <ClientForm />
+    </CardWrapper>
+  );
 }
 
-export default ClientPage
+export default ClientPage;
