@@ -4,10 +4,9 @@
   "description": "Technical Test for Company DataKnows",
   "main": "dist/main.js",
   "scripts": {
-    "start": "node dist/main.js",
     "dev": "nodemon",
-    "test": "jest --verbose",
-    "build": "tsc"
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/index.js"
   },
   "author": "Sebastian Martinez",
   "license": "MIT",
@@ -33,8 +32,9 @@
     "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^3.1.1",
+    "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

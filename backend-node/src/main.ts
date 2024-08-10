@@ -30,7 +30,7 @@ function boostrap(): void {
       console.log("[DB] - Connected to database")
     })
     .then(() => {
-      const PORT = process.env.PORT || 5000
+      const PORT = process.env.PORT || 3000
       app.listen(PORT, () => {
         console.log(`[APP] - Started application on port ${PORT}`)
         router(app)
