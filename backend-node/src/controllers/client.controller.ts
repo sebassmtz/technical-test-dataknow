@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { ClientService } from "../services/client.service"
-import { CreateClient } from "src/interfaces/client"
+import { CreateClient } from "../interfaces/client"
 
 export class ClientController {
   private clientService: ClientService

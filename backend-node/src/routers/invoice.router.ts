@@ -16,6 +16,7 @@ export default function InvoiceRouter(router: Router): void {
    *           - discount_value
    *           - vat_value
    *           - total_value
+   *           - clientId
    *        example:
    *           date: 2021-10-10
    *           name_product: Product 1
@@ -23,6 +24,7 @@ export default function InvoiceRouter(router: Router): void {
    *           discount_value: 10
    *           vat_value: 19
    *           total_value: 1000
+   *           clientId: 2
    *    Invoice:
    *     type: object
    *     required:
@@ -70,5 +72,156 @@ export default function InvoiceRouter(router: Router): void {
   router.get(
     "/api/invoice",
     invoiceController.getInvoices.bind(invoiceController)
+  )
+
+  /**
+   * @openapi
+   * /api/invoice:
+   *  post:
+   *     tags:
+   *     - Invoice
+   *     summary: Create a invoice
+   *     security: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *        application/json:
+   *          schema:
+   *            $ref: '#/components/schemas/CreateInvoice'
+   *     responses:
+   *       200:
+   *        description: success
+   *        content:
+   *          application/json:
+   *            schema:
+   *                $ref: '#/components/schemas/CreateInvoice'
+   *       400:
+   *        description: Bad request
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/BadRequest'
+   */
+  router.post(
+    "/api/invoice",
+    invoiceController.createInvoice.bind(invoiceController)
+  )
+
+  /**
+   * @openapi
+   * /api/invoice/{id}:
+   *  get:
+   *     tags:
+   *     - Invoice
+   *     summary: Get invoice by id
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: invoice id
+   *     responses:
+   *       200:
+   *        description: success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Invoice'
+   *       400:
+   *        description: Bad request
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/BadRequest'
+   *       404:
+   *        description: Not found
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/NotFound'
+   */
+  router.get(
+    "/api/invoice/:id",
+    invoiceController.getInvoiceById.bind(invoiceController)
+  )
+
+  /**
+   * @openapi
+   * /api/invoice/{id}:
+   *  patch:
+   *     tags:
+   *     - Invoice
+   *     summary: Update invoice by id
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: invoice id
+   *     requestBody:
+   *       required: true
+   *       content:
+   *        application/json:
+   *          schema:
+   *            $ref: '#/components/schemas/CreateInvoice'
+   *     responses:
+   *       200:
+   *        description: success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Invoice'
+   *       400:
+   *        description: Bad request
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/BadRequest'
+   *       404:
+   *        description: Not found
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/NotFound'
+   */
+  router.patch(
+    "/api/invoice/:id",
+    invoiceController.updateInvoice.bind(invoiceController)
+  )
+  /**
+   * @openapi
+   * /api/invoice/{id}:
+   *  delete:
+   *     tags:
+   *     - Invoice
+   *     summary: Delete invoice by id
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Invoice id
+   *     responses:
+   *       204:
+   *        description: success
+   *       400:
+   *        description: Bad request
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/BadRequest'
+   *       404:
+   *        description: Not found
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/NotFound'
+   */
+  router.delete(
+    "/api/invoice/:id",
+    invoiceController.deleteInvoice.bind(invoiceController)
   )
 }

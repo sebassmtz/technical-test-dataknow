@@ -20,7 +20,7 @@ export class Invoice extends Model<
   declare discount_value: number
   declare vat_value: number
   declare total_value: number
-  declare createdAt: Date
+  declare createdAt: CreationOptional<Date>
 
   declare clientId: number
 }
