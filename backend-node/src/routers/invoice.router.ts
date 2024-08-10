@@ -109,6 +109,56 @@ export default function InvoiceRouter(router: Router): void {
 
   /**
    * @openapi
+   * /api/invoice/date:
+   *  get:
+   *     tags:
+   *     - Invoice
+   *     summary: Get invoice by client id and between dates
+   *     parameters:
+   *      - in: query
+   *        name: clientId
+   *        schema:
+   *          type: integer
+   *        description: client id
+   *      - in: query
+   *        name: from
+   *        schema:
+   *          type: date
+   *        description: start date
+   *      - in: query
+   *        name: to
+   *        schema:
+   *          type: date
+   *        description: end date
+   *     responses:
+   *       200:
+   *        description: success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Invoice'
+   *       400:
+   *        description: Bad request
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/BadRequest'
+   *       404:
+   *        description: Not found
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/NotFound'
+   */
+  router.get(
+    "/api/invoice/date",
+    invoiceController.getInvoiceByClientIdAndBetweenDates.bind(
+      invoiceController
+    )
+  )
+
+  /**
+   * @openapi
    * /api/invoice/{id}:
    *  get:
    *     tags:

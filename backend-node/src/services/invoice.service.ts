@@ -1,3 +1,4 @@
+import { Op } from "sequelize"
 import { CreateInvoice } from "../interfaces/invoice"
 import { Invoice } from "./../models/invoice.module"
 
@@ -15,6 +16,26 @@ export class InvoiceService {
     try {
       const invoice = await Invoice.findByPk(id)
       return invoice
+    } catch (error) {
+      throw new Error((error as Error).message)
+    }
+  }
+
+  public async getInvoiceByClientIdAndBetweenDates(
+    clientId: number,
+    from: Date,
+    to: Date
+  ) {
+    try {
+      const invoices = await Invoice.findAll({
+        where: {
+          clientId: clientId,
+          date: {
+            [Op.between]: [from, to],
+          },
+        },
+      })
+      return invoices
     } catch (error) {
       throw new Error((error as Error).message)
     }
@@ -62,5 +83,3 @@ export class InvoiceService {
     }
   }
 }
-
-

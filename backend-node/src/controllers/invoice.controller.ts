@@ -36,9 +36,16 @@ export class InvoiceController {
     res: Response
   ): Promise<Response> {
     try {
-      const from = Number(req.query.from) || 0
-      const to = Number(req.query.to) || 0
-      return res.status(200).json({})
+      const from = new Date(req.query.from as string)
+      const to = new Date(req.query.to as string)
+      const clientId = Number(req.query.clientId)
+      const invoices =
+        await this.invoiceService.getInvoiceByClientIdAndBetweenDates(
+          clientId,
+          from,
+          to
+        )
+      return res.status(200).json(invoices)
     } catch (error) {
       console.error(error)
       return res.status(500).json({ message: (error as Error).message })
