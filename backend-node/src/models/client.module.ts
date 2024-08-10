@@ -17,8 +17,8 @@ export class Client extends Model<
   declare name: string
   declare type_identification: string
   declare number_identification: string
-  declare observations: string
-  declare createdAt: Date
+  declare observations: CreationOptional<string>
+  declare createdAt: CreationOptional<Date>
   declare Invoices?: Invoice[]
 }
 
@@ -56,8 +56,8 @@ Client.init(
   }
 )
 
-Client.hasMany(Invoice, { foreignKey: 'clientId', sourceKey: 'id' })
+Client.hasMany(Invoice, { foreignKey: "clientId", sourceKey: "id" })
 Invoice.belongsTo(Client, {
-  foreignKey: 'clientId',
-  targetKey: 'id',
+  foreignKey: "clientId",
+  targetKey: "id",
 })
