@@ -1,5 +1,7 @@
 import { Router } from "express"
 import healthRouter from "./health.router"
+import clientRouter from "./client.router"
+import invoiceRouter from "./invoice.router"
 
 const router = Router()
 
@@ -29,6 +31,8 @@ export default function (app: Router): Router {
    */
 
   healthRouter(app)
+  clientRouter(app)
+  invoiceRouter(app)
 
   app.get("/", (req, res) => {
     res.status(200).json({ message: "Welcome to the API" })

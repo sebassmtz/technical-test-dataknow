@@ -17,7 +17,7 @@ export class Invoice extends Model<
   declare date: Date
   declare name_product: string
   declare price: number
-  declare discount_vvalue: number
+  declare discount_value: number
   declare vat_value: number
   declare total_value: number
   declare createdAt: Date
@@ -44,7 +44,7 @@ Invoice.init(
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    discount_vvalue: {
+    discount_value: {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
@@ -72,8 +72,6 @@ Invoice.init(
   },
   {
     sequelize,
-    tableName: "products",
+    tableName: "invoices",
   }
 )
-
-Invoice.belongsTo(Client, { foreignKey: "clientId" })

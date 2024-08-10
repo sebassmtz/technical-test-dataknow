@@ -56,4 +56,8 @@ Client.init(
   }
 )
 
-Client.hasMany(Invoice, { foreignKey: 'clientId' })
+Client.hasMany(Invoice, { foreignKey: 'clientId', sourceKey: 'id' })
+Invoice.belongsTo(Client, {
+  foreignKey: 'clientId',
+  targetKey: 'id',
+})

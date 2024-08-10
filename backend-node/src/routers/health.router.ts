@@ -39,4 +39,5 @@ export default function productRouter(router: Router): void {
    *              $ref: '#/components/schemas/BadRequest'
    */
   router.get("/health", healthController.handle.bind(healthController))
+
 }
