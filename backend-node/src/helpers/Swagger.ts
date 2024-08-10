@@ -26,7 +26,7 @@ const options: swaggerJsdoc.Options = {
     // ],
   },
   // Configurar dependiendo de donde esten los routers
-  apis: ["./src/routers/*.ts"],
+  apis: ["./src/routers/*.ts", "./dist/routers/*.js"],
 }
 
 const swaggerSpec = swaggerJsdoc(options)
