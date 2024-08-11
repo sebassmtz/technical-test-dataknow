@@ -40,3 +40,15 @@ export const InvoiceSchema = z.object({
     message: "Cliente es requerido",
   }),
 });
+
+export const QueryMain = z.object({
+  from: z.string().min(1, {
+    message: "Fecha Inicioes requerida",
+  }),
+  to: z.string().min(1, {
+    message: "Fecha Fin es requerida",
+  }),
+  clientId: z.number().min(1, {
+    message: "Cliente es requerido",
+  }),
+});

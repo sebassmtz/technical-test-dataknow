@@ -20,3 +20,9 @@ export interface AddInvoice {
   total_value: number;
   clientId: number;
 }
+
+export interface QueryInvoice  {
+  from: string;
+  to: string;
+  clientId: number;
+}
