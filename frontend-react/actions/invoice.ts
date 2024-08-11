@@ -1,5 +1,5 @@
 import axios from "@/actions/conf";
-import { AddInvoice, Invoice } from "@/types/invoice";
+import { AddInvoice, Invoice, QueryInvoice } from "@/types/invoice";
 
 export const getAllInvoices = async () => {
   const response = await axios.get<Invoice[]>("/invoice", {
@@ -25,5 +25,17 @@ export const deleteInvoice = async (id: number) => {
       "Content-Type": "application/json",
     },
   });
+  return response.data;
+};
+
+export const queryMainInvoice = async (data: QueryInvoice) => {
+  const response = await axios.get<Invoice[]>(
+    `/invoice/date?clientId=${data.clientId}&from=${data.from}&to=${data.to}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return response.data;
 };
