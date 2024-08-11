@@ -54,7 +54,13 @@ export class InvoiceController {
 
   public async createInvoice(req: Request, res: Response): Promise<Response> {
     try {
-      const invoice: CreateInvoice = req.body
+      const invoice: CreateInvoice = {
+        ...req.body,
+        price: parseFloat(req.body.price).toFixed(2),
+        discount_value: parseFloat(req.body.discount_value).toFixed(2),
+        vat_value: parseFloat(req.body.vat_value).toFixed(2),
+        total_value: parseFloat(req.body.total_value).toFixed(2),
+      }
       const newInvoice = await this.invoiceService.createInvoice(invoice)
       return res.status(201).json(newInvoice)
     } catch (error) {
