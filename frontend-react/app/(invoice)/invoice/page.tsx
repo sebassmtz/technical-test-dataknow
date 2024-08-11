@@ -1,9 +1,16 @@
-import React from 'react'
+import { CardWrapper } from "@/components/card/card-wrapper";
+import { InvoiceForm } from "@/components/invoice/invoice-form";
+import React from "react";
 
 function InvoicePage() {
   return (
-    <div>InvoicePage</div>
-  )
+    <CardWrapper
+      mainLabel="Facturas"
+      headerLabel=""
+    >
+      <InvoiceForm />
+    </CardWrapper>
+  );
 }
 
-export default InvoicePage
+export default InvoicePage;

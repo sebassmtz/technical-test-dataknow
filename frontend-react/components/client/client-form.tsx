@@ -1,6 +1,4 @@
 "use client";
-import React, { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -16,27 +14,18 @@ import {
 } from "@/components/ui/form";
 
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 import { Textarea } from "@/components/ui/textarea";
 
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 import { Input } from "@/components/ui/input";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { addClient } from "@/actions/client";
@@ -63,21 +52,13 @@ export function ClientForm() {
   });
 
   const onSubmit = (values: z.infer<typeof ClientSchema>) => {
-
+    console.log(values);
     const formattedValues = {
       ...values,
       number_identification: parseInt(values.number_identification),
     };
     mutate(formattedValues);
   };
-
-  const types = [
-    { label: "Cedula Ciudadania", value: "CC" },
-    { label: "Cedula Extranjeria", value: "CE" },
-    { label: "Pasaporte", value: "PAS" },
-    { label: "Tarjeta de Extranjeria", value: "TE" },
-    { label: "NIT", value: "NIT" },
-  ] as const;
 
   return (
     <div className="mx-2">
@@ -110,73 +91,33 @@ export function ClientForm() {
             />
           </div>
           <div className="flex flex-row space-x-4">
-            <div className="mt-2">
-              <FormField
-                control={form.control}
-                name="type_identification"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Tipo de Identificacion</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                              "w-[200px] justify-between",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value
-                              ? types.find((type) => type.value === field.value)
-                                  ?.label
-                              : "Seleccione..."}
-                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandInput
-                            placeholder="Buscar tipo..."
-                            className="h-9"
-                          />
-                          <CommandList>
-                            <CommandEmpty>No se encuentra</CommandEmpty>
-                            <CommandGroup>
-                              {types.map((type) => (
-                                <CommandItem
-                                  value={type.label}
-                                  key={type.value}
-                                  onSelect={() => {
-                                    form.setValue(
-                                      "type_identification",
-                                      type.value
-                                    );
-                                  }}
-                                >
-                                  {type.label}
-                                  <CheckIcon
-                                    className={cn(
-                                      "ml-auto h-4 w-4",
-                                      type.value === field.value
-                                        ? "opacity-100"
-                                        : "opacity-0"
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </CommandList>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              control={form.control}
+              name="type_identification"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tipo de Identificacion</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione un tipo" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="CC">Cedula Ciudadania</SelectItem>
+                      <SelectItem value="CE">Cedula Extranjeria</SelectItem>
+                      <SelectItem value="TE">Tarjeta de Extranjeria</SelectItem>
+                      <SelectItem value="NIT">NIT</SelectItem>
+                      <SelectItem value="PAS">Pasaporte</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="number_identification"
